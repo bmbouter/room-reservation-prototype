@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Room Reservation - Test</title>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/datePicker.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/backbone-min.js"></script>
+    <script type="text/javascript" src="js/lib/date.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.datePicker.js"></script>
+    <script type="text/javascript" src="js/RoomReservation.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body>
+	<form>
+		<fieldset id="room-reservations">
+
+
+			<script type="text/template" class="room-wrap" id="roomres-template">
+				<span class="toggle">&#9658;</span>
+				<fieldset class="room border">
+					<legend><%= name %></legend>
+					<fieldset class="date-time-wrap">
+						<legend>Date &amp; Time:</legend>
+						<fieldset class="date-wrap">
+							<input class="date-pick" type="text" name="date" />
+						</fieldset>
+						<fieldset class="time-wrap">
+							<span>From:</span>
+							<ul class="time-from single-line">
+								<li>
+									<select name="hours">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
+								</li>
+								<li>
+									<select name="minutes">
+										<option value="0">00</option>
+										<option value="15">15</option>
+										<option value="30">30</option>
+										<option value="45">45</option>
+									</select>
+								</li>
+								<li>
+									<select name="ampm">
+										<option value="am">AM</option>
+										<option value="pm" selected="selected">PM</option>
+									</select>
+								</li>
+							</ul>
+							<span>To:</span>
+							<ul class="time-to single-line">
+								<li>
+									<select name="hours">
+										<option value="1">1</option>
+										<option value="2" selected="selected">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+									</select>
+								</li>
+								<li>
+									<select name="minutes">
+										<option value="0">00</option>
+										<option value="15">15</option>
+										<option value="30">30</option>
+										<option value="45">45</option>
+									</select>
+								</li>
+								<li>
+									<select name="ampm">
+										<option value="am">AM</option>
+										<option value="pm" selected="selected">PM</option>
+									</select>
+								</li>
+							</ul>
+						</fieldset>
+					</fieldset>
+					<fieldset class="right room-names">
+						<legend>Available Rooms:</legend>
+						<ul>
+							<li><label><input type="radio" name="room-name" value="Nortel A" />Nortel A</label></li>
+							<li><label><input type="radio" name="room-name" value="Nortel B" />Nortel B</label></li>
+							<li><label><input type="radio" name="room-name" value="Wachovia" />Wachovia</label></li>
+						</ul>
+					</fieldset>
+					<br />
+					<fieldset class="additionals">
+						<legend>I Require:</legend>
+						<ul>
+							<li><label><input type="checkbox" name="laptop-cart" value="Laptop Cart" />Laptop Cart</label></li>
+							<li><label><input type="checkbox" name="coffee" value="Coffee" />Coffee</label></li>
+							<li><label><input type="checkbox" name="tables-inside" value="Tables Inside" />Tables Inside Room</label></li>
+							<li><label><input type="checkbox" name="tables-outside" value="Tables Outside" />Tables Outside Room</label></li>
+							<li><label><input type="checkbox" name="projector" value="Projector" />Projector</label></li>
+							<li><label><input type="checkbox" name="smartboard" value="SmartBoard" />SmartBoard</label></li>
+							<li><label><input type="checkbox" name="other" value="Other" />Other</label></li>
+						</ul>
+					</fieldset>
+					<fieldset class="right configuration">
+						<legend>Room Configuration:</legend>
+						<ul>
+							<li><label><input type="radio" name="configuration" value="Lecture" />Lecture</label></li>
+							<li><label><input type="radio" name="configuration" value="Classroom" />Classroom</label></li>
+							<li><label><input type="radio" name="configuration" value="Conference" />Conference</label></li>
+							<li><label><input type="radio" name="configuration" value="U Shape" />U Shape</label></li>
+							<li><label><input type="radio" name="configuration" value="Workshop" />Workshop</label></li>
+						</ul>
+					</fieldset>
+					<fieldset class="delete">Remove this Reservation</fieldset>
+				</fieldset>
+			</script>
+			<fieldset class="room-wrap add">click here</fieldset>
+
+
+
+
+		</fieldset>
+	</form>
+
+
+	<script type="text/javascript" href="js/RoomReservation.js"></script>
+</body>
+</html>
