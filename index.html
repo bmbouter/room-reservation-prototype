@@ -10,14 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/datePicker.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
-    <script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
-    <script type="text/javascript" src="js/lib/backbone-min.js"></script>
-    <script type="text/javascript" src="js/lib/date.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.datePicker.js"></script>
-    <script type="text/javascript" src="js/RoomReservation.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    
+    
 </head>
 
 <body>
@@ -28,7 +22,7 @@
 			<script type="text/template" class="room-wrap" id="roomres-template">
 				<span class="toggle">&#9658;</span>
 				<fieldset class="room border">
-					<legend><%= name %></legend>
+					<legend class="main-legend"><%= name %></legend>
 					<fieldset class="date-time-wrap">
 						<legend>Date &amp; Time:</legend>
 						<fieldset class="date-wrap">
@@ -106,9 +100,9 @@
 					<fieldset class="right room-names">
 						<legend>Available Rooms:</legend>
 						<ul>
-							<li><label><input type="radio" name="room-name" value="Nortel A" />Nortel A</label></li>
-							<li><label><input type="radio" name="room-name" value="Nortel B" />Nortel B</label></li>
-							<li><label><input type="radio" name="room-name" value="Wachovia" />Wachovia</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel A" />Nortel A</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel B" />Nortel B</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
 						</ul>
 					</fieldset>
 					<br />
@@ -146,7 +140,14 @@
 		<fieldset id="add">click here</fieldset>
 	</form>
 
-
+<script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+    <script type="text/javascript" src="js/lib/backbone-min.js"></script>
+    <script type="text/javascript" src="js/lib/date.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.datePicker.js"></script>
+    <script type="text/javascript" src="js/RoomReservation.js"></script>
 	<script type="text/javascript" href="js/RoomReservation.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

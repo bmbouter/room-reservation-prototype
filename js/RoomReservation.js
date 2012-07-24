@@ -1,16 +1,47 @@
-$(function() {
 
 	// The single RoomReservation model
 	var RoomReservation = Backbone.Model.extend({
 		defaults: {
 			name:  'Add A Room',
-			state: 'shown',
+			shown: true,
 		}
 	});
 
+	
+
 	// The Room collection, composed of at least one RoomReservation model
 	var Rooms = Backbone.Collection.extend({
-		model: RoomReservation
+		model: RoomReservation,
+		initialize: function() {
+
+			this.renderRoom();
+
+			return this;
+			
+		},
+		renderRoom: function() {
+			var room     = new RoomReservation({radioGroup : "reservation-" + this.length});
+			var roomView = new RoomReservationView({
+				model: room,
+				id: "reservation-" + this.length
+			});
+			this.add(roomView);
+			console.log('rendering room, length: ' + this.length);
+		}
+	});
+	
+	// This view will contain all of the RoomReservation models
+	var RoomsCollectionView = Backbone.View.extend({
+		model: Rooms,
+		initialize: function() {
+			this.el = $("#room-reservations");
+			_.bindAll(this, "append");
+
+			return this;
+		},
+		append: function(model) {
+			$(this.el).append(model);
+		}
 	});
 
 	// View for the RoomReservation model
@@ -19,61 +50,50 @@ $(function() {
 		className: "room-wrap",
 		template: $("#roomres-template").html(),
 		events: {
-			"click .room-names input" : "updateName"
+			"click .room-names input" : "updateName",
+			"click .toggle"           : "toggleStateAttr",
 		},
 		initialize: function() {
-			_.bindAll(this, "toggleState");
-			this.model.bind('change:state', this.toggleState);
+			_.bindAll(this, "changeReservationName", "toggleState");
+			this.model.bind("change:shown", this.toggleState);
+			this.model.bind("change:name",  this.changeReservationName);
 		},
 		render: function(model) {
 			var templ = _.template(this.template);
 			this.$el.html(templ(this.model.toJSON()));
-			if (this.model.get("state") == "pre-click") {
-				this.$el.addClass("add");
-			}
-			console.log('new room view rendered');
 			return this;
 		},
 		updateName: function(e) {
 			this.model.set("name", e.currentTarget.defaultValue);
-			console.log(this.model.get("name"));
+		},
+		changeReservationName: function() {
+			$(this.$el).find("legend.main-legend").text(this.model.get("name"));
+		},
+		toggleStateAttr: function() {
+			this.model.set("shown", !this.model.get("shown"));
 		},
 		toggleState: function() {
-			console.log('toggle');
-			if (this.model.get("shown") == true) {
-				$(this.el).find(".room").slideUp();
-			} else {
-				$(this.el).find(".room").slideDown();
-			}
+			if (this.model.get("shown") === false) $(this.el).find(".room").slideUp();
+			else                                   $(this.el).find(".room").slideDown();
 		}
 	});
 
-	var AppView = Backbone.View.extend({
-		el: $("#room-reservations"),
-		events: {
-			"click #add" : "addRoom",
-			"click .delete"        : "removeReservation",
-			"click .toggle" : "toggleModel"
-		},
-		initialize: function() {
+	var AppController = {
+		init: function() {
+			this.roomsView = new RoomsCollectionView();
 			this.roomsCollection = new Rooms();
-			this.render();
-		},
-		render: function() {
-			var that = this;
-			that.renderRoom();
-		},
-		renderRoom: function() {
-			var room     = new RoomReservation;
-			var roomView = new RoomReservationView({
-				model: room,
-				id: "reservation-" + this.roomsCollection.length
-			});
-			this.roomsCollection.add(roomView);
-			this.$el.append(roomView.render().el);
-		},
-		addRoom: function() {
 
+			this.roomsCollection.on("add", function(model) {
+				console.log(this.roomsView);
+				this.roomsView.append(model);
+			});
+
+			$("#add").click(function() {window.app.addReservation();});
+
+			return this;
+		},
+		addReservation: function() {
+			this.roomsCollection.renderRoom();
 		},
 		removeReservation: function(e) {
 			if (this.roomsCollection.length == 1) {
@@ -83,20 +103,8 @@ $(function() {
 				var obj = this.roomsCollection.get(id);
 				this.roomsCollection.remove(obj);
 			}
-		},
-		toggleModel: function(e) {
-			var id = $(e.currentTarget).parent().attr('id');
-			var obj = this.roomsCollection.get(id);
-			console.log(obj.get("shown"));
-			obj.set("state", !obj.get("shown"));
-			console.log(obj.get("state"))
 		}
-	});
-
-	var App = new AppView();
-
-
-});
+	};
 
 
 
