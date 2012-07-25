@@ -4,37 +4,15 @@
 			name:  'Add A Room',
 			hiddenName: 'Room Reservation',
 			shown: true,
-			canBeRemoved: false,
+			radioGroup: '1'
 		}
 	});
 
 	// The Room collection, composed of at least one RoomReservation model
-	var Rooms = Backbone.Collection.extend({
+	var RoomsCollection = Backbone.Collection.extend({
 		model: RoomReservation,
 		initialize: function() {
 			return this;
-		},
-		renderRoom: function() {
-			var room     = new RoomReservation({radioGroup : "reservation-" + this.length});
-			var roomView = new RoomReservationView({
-				model: room,
-				id: "reservation-" + this.length
-			});
-			this.add(roomView);
-			this.updateCanBeRemoved();
-		},
-		updateCanBeRemoved: function() {
-			if (this.length > 1) {
-				console.log('yes');
-				_.each(this.models, function(model) {
-					model.set("canBeRemoved", true);
-					console.log(model.get("canBeRemoved"));
-				});
-			} else {
-				_.each(this.models, function(model) {
-					model.set("canBeRemoved", false);
-				});
-			}
 		}
 	});
 	
@@ -42,24 +20,48 @@
 	var RoomsCollectionView = Backbone.View.extend({
 		initialize: function() {
 			this.el              = $("#room-reservations");
-			this.roomsCollection = new Rooms();
-
+			this.roomsCollection = new RoomsCollection();
+			
+			//_.bindAll(this, "append");
+			
 			var that = this;
 			this.roomsCollection.on("add", function(model) {
 				that.append(model);
+				that.updateDelete();
+			});
+			this.roomsCollection.on("remove", function(model) {
+				that.updateDelete();
 			});
 
-			this.roomsCollection.renderRoom();
-
-			_.bindAll(this, "append");
+			this.addRoomReservation();
 
 			return this;
 		},
 		addRoomReservation: function() {
-			this.roomsCollection.renderRoom();
+			
+			var room     = new RoomReservation();
+			var id       = room.cid;
+			room.set("radioGroup", id);
+			var roomView = new RoomReservationView({
+				model: room,
+				id: "reservation-" + id,
+				collection: this.roomsCollection,
+			});
+			this.roomsCollection.add(roomView);
 		},
 		append: function(model) {
 			$(this.el).append(model.toJSON().render().el);
+		},
+		updateDelete: function() {
+			if (this.roomsCollection.length > 1) {
+				_.each(this.roomsCollection.models, function(model) {
+					$(model.get("el")).find(".delete").addClass("show");
+				});
+			} else {
+				_.each(this.roomsCollection.models, function(model) {
+					$(model.get("el")).find(".delete").removeClass("show");
+				});
+			}
 		}
 	});
 
@@ -71,13 +73,14 @@
 		events: {
 			"click .room-names input" : "updateName",
 			"click .toggle, .hidden-view"           : "toggleStateAttr",
-			"click .delete.show"           : "removeReservation"
+			"click .delete" : "removeReservation"
 		},
 		initialize: function() {
-			_.bindAll(this, "changeReservationName", "updateRemove", "toggleState");
+			_.bindAll(this, "changeReservationName", "toggleState", "removeReservation");
 			this.model.bind("change:shown", this.toggleState);
 			this.model.bind("change:name",  this.changeReservationName);
-			this.model.bind("change:canBeRemoved", this.updateRemove);
+
+			this.collection = this.collection;
 		},
 		render: function(model) {
 			var templ = _.template(this.template);
@@ -100,17 +103,9 @@
 			if (this.model.get("shown") === false) $(this.el).addClass("hidden").find(".room").slideUp();
 			else                                   $(this.el).removeClass("hidden").find(".room").slideDown();
 		},
-		updateRemove: function() {
-			console.log('update remove');
-			if (this.model.get("canBeRemoved") === true) {
-				$(this.el).find(".delete").addClass("show");
-			} else {
-				$(this.el).find(".delete").removeClass("show");
-			}
-		},
 		removeReservation: function() {
-			console.log('remove this: ' + this.model);
-			//this.roomsCollection.remove(obj);
+			this.collection.remove(this);
+			this.remove();
 		}
 	});
 
@@ -118,7 +113,7 @@
 		init: function() {
 			this.roomsCollectionView = new RoomsCollectionView();
 
-			$("#add").click(function() {window.app.addReservation();});
+			$("#add").click(function() {window.app.roomsCollectionView.addRoomReservation();});
 
 			return this;
 		},
