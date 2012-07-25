@@ -1,7 +1,7 @@
-#rooms {}
+#room-reservations {margin-top: 15px;}
 fieldset.border {border: 1px solid #000;}
 fieldset.right {float: right;}
-.room-wrap {position: relative; min-height: 50px;}
+.room-wrap {position: relative; min-height: 50px; margin-bottom: 15px;}
 .room-wrap .toggle {position: absolute; top: 18px; left: 3px; cursor: pointer;}
 .room {display: inline-block; padding: 10px 20px 20px; border-radius: 5px; overflow: hidden; margin-left: 20px;}
 .room ul {list-style-type: none; margin-left: 6px;}
@@ -13,4 +13,11 @@ fieldset.right {float: right;}
 .room .date-time-wrap {float: left; margin-right: 35px;}
 .room .date-pick {width: 150px;}
 .room .additionals {float: left;}
-.room .delete {float: left; clear: both; cursor: pointer;}
+.room .delete {float: left; clear: both; cursor: pointer; display: none;}
+.room .delete.show {display: block;}
+
+.hidden-view {display: none; width: 390px; margin-left: 20px; border-radius: 5px; text-align: center; font-size: 16px; height: 30px; cursor: pointer; padding-top: 10px;}
+.room-wrap.hidden .hidden-view {display: block;}
+
+#add {border: 1px dashed #000; width: 380px; margin-left: 20px; border-radius: 5px; cursor: pointer; padding: 6px;}
+#add span {font-size: 17px;}
