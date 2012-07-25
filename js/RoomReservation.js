@@ -69,11 +69,11 @@
 	var RoomReservationView = Backbone.View.extend({
 		tagName:   "fieldset",
 		className: "room-wrap",
-		template: $("#roomres-template").html(),
+		template:  $("#roomres-template").html(),
 		events: {
-			"click .room-names input" : "updateName",
-			"click .toggle, .hidden-view"           : "toggleStateAttr",
-			"click .delete" : "removeReservation"
+			"click .room-names input"     : "updateName",
+			"click .toggle, .hidden-view" : "toggleStateAttr",
+			"click .delete"               : "removeReservation"
 		},
 		initialize: function() {
 			_.bindAll(this, "changeReservationName", "toggleState", "removeReservation");
@@ -113,8 +113,13 @@
 		init: function() {
 			this.roomsCollectionView = new RoomsCollectionView();
 
-			$("#add").click(function() {window.app.roomsCollectionView.addRoomReservation();});
+			var that = this;
+			$("#add").click(function() {that.roomsCollectionView.addRoomReservation();});
 
+			$(".date-pick").live("click", function() {
+				$(this).datepicker({minDate: 0, maxDate: +365});
+			});
+			
 			return this;
 		},
 		addReservation: function() {
