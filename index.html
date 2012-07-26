@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.22.custom.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/tipped.css">
 
     
     
@@ -32,7 +33,7 @@
 							<span>From:</span>
 							<ul class="time-from single-line">
 								<li>
-									<select name="hours">
+									<select name="hours" class="select-from-hour">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -48,7 +49,7 @@
 									</select>
 								</li>
 								<li>
-									<select name="minutes">
+									<select name="minutes" class="select-from-min">
 										<option value="0">00</option>
 										<option value="15">15</option>
 										<option value="30">30</option>
@@ -56,7 +57,7 @@
 									</select>
 								</li>
 								<li>
-									<select name="ampm">
+									<select name="ampm" class="select-from-ampm">
 										<option value="am">AM</option>
 										<option value="pm" selected="selected">PM</option>
 									</select>
@@ -65,7 +66,7 @@
 							<span>To:</span>
 							<ul class="time-to single-line">
 								<li>
-									<select name="hours">
+									<select name="hours" class="select-until-hour">
 										<option value="1">1</option>
 										<option value="2" selected="selected">2</option>
 										<option value="3">3</option>
@@ -81,7 +82,7 @@
 									</select>
 								</li>
 								<li>
-									<select name="minutes">
+									<select name="minutes" class="select-until-min">
 										<option value="0">00</option>
 										<option value="15">15</option>
 										<option value="30">30</option>
@@ -89,7 +90,7 @@
 									</select>
 								</li>
 								<li>
-									<select name="ampm">
+									<select name="ampm" class="select-until-ampm">
 										<option value="am">AM</option>
 										<option value="pm" selected="selected">PM</option>
 									</select>
@@ -100,9 +101,9 @@
 					<fieldset class="right room-names">
 						<legend>Available Rooms:</legend>
 						<ul>
-							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel A" />Nortel A</label></li>
-							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel B" />Nortel B</label></li>
-							<li><label><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
+							<li><label class="tipp" title="Something about Nortel A<br />Can we put line breaks?"><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel A" />Nortel A</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel B" />Nortel B</label></li>
+							<li><label class="tipp" title="But I really like the Wachovia one better.<br /><br /><i>Don't they need to change it to Wells Fargo now?"><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
 						</ul>
 					</fieldset>
 					<br />
@@ -143,13 +144,16 @@
 		<fieldset id="add"><span>Click Here to Add a Room Reservation</span></fieldset>
 	</form>
 
-<script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="js/lib/excanvas.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min.js"></script>
     <script type="text/javascript" src="js/lib/backbone-min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="js/lib/tipped.js"></script>
     <script type="text/javascript" src="js/RoomReservation.js"></script>
-	<script type="text/javascript" href="js/RoomReservation.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
