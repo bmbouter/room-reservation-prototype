@@ -2,7 +2,7 @@
 	var RoomReservation = Backbone.Model.extend({
 		defaults: {
 			name:  'Add A Room',
-			hiddenName: 'Room Reservation',
+			hiddenTitle: 'Room Reservation',
 			shown: true,
 			radioGroup: '1'
 		}
@@ -89,12 +89,12 @@
 		},
 		updateName: function(e) {
 			var selected = e.currentTarget.defaultValue;
-			this.model.set("hiddenName", selected + " Room Reservation");
+			this.model.set("hiddenTitle", selected + " Room Reservation");
 			this.model.set("name", selected);
 		},
 		changeReservationName: function() {
 			$(this.$el).find("legend.main-legend").text(this.model.get("name"));
-			$(this.$el).find("span.hidden-title").text(this.model.get("hiddenName"));
+			$(this.$el).find("span.hidden-title").text(this.model.get("hiddenTitle"));
 		},
 		toggleStateAttr: function() {
 			this.model.set("shown", !this.model.get("shown"));
