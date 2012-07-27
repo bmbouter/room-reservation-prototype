@@ -24,7 +24,7 @@
 						<fieldset class="date-wrap control-group">
 							<legend>Date:</legend>
 							<div class="date-pick"></div>
-							<input type="text" name="dates" class="date-pick-input" />
+							<div name="dates" class="div-date-pick"></div>
 						</fieldset>
 						<fieldset class="time-wrap">
 							<legend>Time:</legend>
@@ -96,7 +96,7 @@
 							</ul>
 						</fieldset>
 					</fieldset>
-					<fieldset class="right border room-names">
+					<fieldset class="border room-names">
 						<legend>Available Rooms:</legend>
 						<ul>
 							<li><label class="tipp" title="But I really like the Wachovia one better.<br /><br /><i>Don't they need to change it to Wells Fargo now?"><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
@@ -111,22 +111,23 @@
 							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Conference Room 215A" />Conference Room 215A</label></li>
 						</ul>
 					</fieldset>
-
 					<br />
-
-					<fieldset class="additionals">
-						<legend>I Require:</legend>
+					<fieldset class="additionals border">
+						<legend>Resources Available:</legend>
 						<ul>
-							<li><label><input type="checkbox" name="laptop-cart" value="Laptop Cart" />Laptop Cart</label></li>
-							<li><label><input type="checkbox" name="coffee" value="Coffee" />Coffee</label></li>
-							<li><label><input type="checkbox" name="tables-inside" value="Tables Inside" />Tables Inside Room</label></li>
-							<li><label><input type="checkbox" name="tables-outside" value="Tables Outside" />Tables Outside Room</label></li>
-							<li><label><input type="checkbox" name="projector" value="Projector" />Projector</label></li>
-							<li><label><input type="checkbox" name="smartboard" value="SmartBoard" />SmartBoard</label></li>
-							<li><label><input type="checkbox" name="other" value="Other" />Other</label></li>
+							<li class="resources-title"><span class="yes">Yes</span> <span class="no">No</span></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-laptop-cart" value="yes" /> <input type="radio" name="<%= radioGroup %>-laptop-cart" value="no" /> Laptop Cart</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-tables-inside" value="yes" /> <input type="radio" name="<%= radioGroup %>-tables-inside" value="no" /> Tables Inside Room</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-tables-outside" value="yes" /> <input type="radio" name="<%= radioGroup %>-tables-outside" value="no" /> Tables Outside Room</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-easels" value="yes" /> <input type="radio" name="<%= radioGroup %>-easels" value="no" /> Easels</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-projector" value="yes" /> <input type="radio" name="<%= radioGroup %>-projector" value="no" /> Projector / Large Screen Display</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-camera" value="yes" /> <input type="radio" name="<%= radioGroup %>-camera" value="no" /> Document Camera</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-audio-conf" value="yes" /> <input type="radio" name="<%= radioGroup %>-audio-conf" value="no" /> Audio Conference</label></li>
+							<li><label><input type="radio" name="<%= radioGroup %>-video-conf" value="yes" /> <input type="radio" name="<%= radioGroup %>-video-conf" value="no" /> Video Conference</label></li>
+							<li><label>Other Requests: <input type="text" name="other-requests" class="input-other-requests" /></label></li>
 						</ul>
 					</fieldset>
-					<fieldset class="right border configuration">
+					<fieldset class="border configuration">
 						<legend>Room Configuration:</legend>
 						<ul class="list-room-configs">
 							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="Lecture" />Lecture</label></li>

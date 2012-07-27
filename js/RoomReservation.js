@@ -11,15 +11,27 @@
 			
 		},
 		isValid: function(model) {
-			var valid = true;
+			var valid       = true;
 
-			var obj = $(model.el);
-			var roomList = obj.find(".room-names");
-			var room = roomList.find("input[name=" + this.cid + "-room-name]:checked");
-			var configList = obj.find(".configuration");
-			var config = configList.find("input[name=" + this.cid + "-configuration]:checked");
-			var dateWrap = obj.find(".date-wrap");
-			var date = dateWrap.find(".date-pick-input");
+			var obj         = $(model.el);
+			var roomList    = obj.find(".room-names");
+			var room        = roomList.find("input[name=" + this.cid + "-room-name]:checked");
+			var configList  = obj.find(".configuration");
+			var config      = configList.find("input[name=" + this.cid + "-configuration]:checked");
+			var dateWrap    = obj.find(".date-wrap");
+			var date        = dateWrap.find(".div-date-pick");
+
+			var resources   = ["laptop-cart", "tables-inside", "tables-outside", "easels", "projector", "camera", "audio-conf", "video-conf"];
+			var additionals = obj.find(".additionals");
+
+			for (var i = 0; i < resources.length; i++) {
+				if (obj.find("input[name=" + this.cid + "-" + resources[i] + "]:checked").val() == undefined) {
+					valid = false;
+					additionals.addClass("error");
+					break;
+				}
+			}
+			if (valid) additionals.removeClass("error");
 
 			if (room.val() == undefined) {
 				valid = false;
@@ -35,7 +47,7 @@
 				configList.removeClass("error");
 			}
 
-			if (date.val() == "") {
+			if (date.text() == "") {
 				valid = false;
 				dateWrap.addClass("error");
 			} else {
@@ -122,9 +134,9 @@
 			this.$el.html(templ(this.model.toJSON()));
 
 			this.$el.find(".date-pick").datepicker({minDate: 0, maxDate: +365, autoSize: true, onSelect: function(dateText, inst) {
-					var input = $(inst.input).siblings(".date-pick-input");
-					if (input.val() == "") input.val(dateText);
-					else input.val(input.val() + ", " + dateText);
+					var input = $(inst.input).siblings(".div-date-pick");
+					if (input.text() == "") input.text(dateText);
+					else input.text(input.text() + ", " + dateText);
 				}
 			});
 
@@ -163,7 +175,7 @@
 			var room     = (selected == undefined) ? room = "Room Reservation" : selected;
 
 			// Get date, if chosen
-			var chosen   = $(this.el).find(".date-pick-input").val();
+			var chosen   = $(this.el).find(".div-date-pick").text();
 			dates        = (chosen == "") ? "" : " on " + chosen;
 
 			// Get time string
@@ -185,18 +197,6 @@
 			var that = this;
 			$("#add").click(function() {that.roomsCollectionView.addRoomReservation();});
 
-			/*$(".date-pick").live("click", function() {
-				$(this).datepicker({minDate: 0, maxDate: +365});
-			});
-			$(".date-pick").datepicker({minDate: 0, maxDate: +365, autoSize: true, onSelect: function(dateText, inst) {
-					var input = $(inst.input).siblings(".date-pick-input");
-					if (input.val() == "") input.val(dateText);
-					else input.val(input.val() + ", " + dateText);
-				}
-			});*/
-
-
-			
 			return this;
 		},
 		addReservation: function() {

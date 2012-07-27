@@ -3,14 +3,16 @@ fieldset {padding: 5px;}
 fieldset.border {border: 1px solid #000;}
 fieldset.right {float: right;}
 
-.room-wrap {position: relative; min-height: 50px; margin-bottom: 15px; width: 450px;}
+.room-wrap {position: relative; min-height: 50px; margin-bottom: 15px; width: 675px;}
 .room-wrap .toggle {position: absolute; top: 18px; left: 3px; cursor: pointer;}
-.room-wrap .delete {cursor: pointer; position: absolute; top: 2px; right: 0; display: none;}
+.room-wrap .delete {cursor: pointer; position: absolute; top: 8px; right: -4px; display: none; padding: 0;}
 .room-wrap .delete.show {display: block;}
 .room-wrap .delete img {width: 20px;}
 
-.room {display: inline-block; padding: 10px 20px 20px; border-radius: 5px; overflow: hidden; margin-left: 20px;}
+.room {padding: 10px 20px 20px; border-radius: 5px; overflow: hidden; margin-left: 20px;}
 .room ul {list-style-type: none; margin-left: 6px;}
+.room ul label {display: inline-block;}
+.room ul.single-line {overflow: hidden;}
 .room ul.single-line li {float: left; margin-right: 8px;}
 .room select {width: 50px;}
 .room legend {font-size: 16px; width: auto; padding: 0 5px; border: 0; margin: 0; line-height: 30px;}
@@ -18,17 +20,20 @@ fieldset.right {float: right;}
 .room li input[type=radio] {margin: 0 5px 3px 0; cursor: auto;}
 .room fieldset.border.error {border: 1px solid #B94A48;}
 .room fieldset.error legend {color: #B94A48;}
-.room .date-time-wrap {float: left; margin-right: 35px;}
+.room .date-time-wrap {float: left; margin-right: 35px; width: 260px;}
 .room .date-wrap {margin-top: 0;}
-.room .date-pick {width: 175px; margin-bottom: 10px;}
+.room .date-pick {width: 240px; margin-bottom: 10px;}
 .room .ui-datepicker-inline {width: 100%;}
-.room .date-pick-input {width: 172px;}
-.room .room-names {word-wrap: break-word; width: 135px;}
-.room .additionals {float: left;}
+.room .div-date-pick {min-height: 20px;}
+.room .room-names {}
+.room .additionals {float: left; clear: both;}
+.room .additionals ul li {margin-left: 5px;}
+.room .additionals ul li.resources-title {margin-left: 0;}
+.room .additionals .input-other-requests {width: 125px; margin: 0 10px 0 0;}
 .room .input-num-seats {width: 40px; margin-right: 5px;}
 
-.hidden-view {display: none; width: 410px; margin-left: 20px; border-radius: 5px; text-align: center; font-size: 16px; height: 30px; cursor: pointer; padding-top: 10px;}
+.hidden-view {display: none; margin-left: 20px; border-radius: 5px; text-align: center; font-size: 16px; min-height: 30px; cursor: pointer; padding-top: 10px;}
 .room-wrap.hidden .hidden-view {display: block;}
 
-#add {border: 1px dashed #000; width: 410px; margin-left: 30px; border-radius: 5px; cursor: pointer; padding: 6px;}
+#add {border: 1px dashed #000; width: 640px; text-align: center; margin-left: 30px; border-radius: 5px; cursor: pointer; padding: 6px;}
 #add span {font-size: 17px;}
