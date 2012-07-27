@@ -12,14 +12,7 @@
 		},
 		isValid: function(model) {
 			var valid       = true;
-
 			var obj         = $(model.el);
-			var roomList    = obj.find(".room-names");
-			var room        = roomList.find("input[name=" + this.cid + "-room-name]:checked");
-			var configList  = obj.find(".configuration");
-			var config      = configList.find("input[name=" + this.cid + "-configuration]:checked");
-			var dateWrap    = obj.find(".date-wrap");
-			var date        = dateWrap.find(".div-date-pick");
 
 			var resources   = ["laptop-cart", "tables-inside", "tables-outside", "easels", "projector", "camera", "audio-conf", "video-conf"];
 			var additionals = obj.find(".additionals");
@@ -32,6 +25,37 @@
 				}
 			}
 			if (valid) additionals.removeClass("error");
+
+			var roomList    = obj.find(".room-names");
+			var room        = roomList.find("input[name=" + this.cid + "-room-name]:checked");
+			var configList  = obj.find(".configuration");
+			var config      = configList.find("input[name=" + this.cid + "-configuration]:checked");
+			var dateWrap    = obj.find(".date-wrap");
+			var date        = dateWrap.find(".div-date-pick");
+			var timeWrap    = obj.find(".time-wrap");
+			var fromAmPm    = timeWrap.find(".select-from-ampm").val();
+			var untilAmPm   = timeWrap.find(".select-until-ampm").val();
+			var fromHour    = timeWrap.find(".select-from-hour").val();
+			var untilHour   = timeWrap.find(".select-until-hour").val();
+			var fromMin     = timeWrap.find(".select-from-min").val();
+			var untilMin    = timeWrap.find(".select-until-min").val();
+
+			if (fromAmPm == "pm") fromHour += 12;
+			if (untilAmPm == "pm") untilHour += 12;
+
+			if (fromHour > untilHour) {
+				valid = false;
+				timeWrap.addClass("error");
+			} else if (fromHour == untilHour) {
+				if (fromMin >= untilMin) {
+					valid = false;
+					timeWrap.addClass("error");
+				} else {
+					timeWrap.removeClass("error");
+				}
+			} else {
+				timeWrap.removeClass("error");
+			}
 
 			if (room.val() == undefined) {
 				valid = false;
@@ -161,6 +185,8 @@
 			} else {
 				$(this.el).removeClass("hidden").find(".room").slideDown();
 			}
+			$(".tipp.wachovia").attr("title", "this is updated text");
+			Tipped.refresh(".tipp.wachovia")
 		},
 		removeReservation: function() {
 			var that = this;
