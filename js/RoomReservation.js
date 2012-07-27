@@ -157,16 +157,19 @@
 			var templ = _.template(this.template);
 			this.$el.html(templ(this.model.toJSON()));
 
+                        var that = this;
 			this.$el.find(".date-pick").datepicker({minDate: 0, maxDate: +365, autoSize: true, onSelect: function(dateText, inst) {
+                                        that.render(this.model);
 					var input = $(inst.input).siblings(".div-date-pick");
 					if (input.text() == "") input.text(dateText);
 					else input.text(input.text() + ", " + dateText);
 				}
 			});
-
-			Tipped.create(this.$el.find(".tipp"), {hook: "rightmiddle"});
 		},
 		render: function(model) {
+                        Tipped.remove(".tipp");
+                        //Update the labels here like so:    this.$(".wachovia").attr("title", this.count);
+                        Tipped.create(this.$(".tipp"), {hook: "rightmiddle"});
 			return this;
 		},
 		updateName: function(e) {
