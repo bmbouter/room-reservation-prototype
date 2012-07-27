@@ -10,26 +10,24 @@
     <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.22.custom.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/tipped.css">
-
-    
-    
 </head>
 
 <body>
 	<form>
 		<fieldset id="room-reservations">
 
-
 			<script type="text/template" class="room-wrap" id="roomres-template">
 				<span class="toggle">&#9658;</span>
 				<fieldset class="room border">
 					<legend class="main-legend"><%= name %></legend>
 					<fieldset class="date-time-wrap">
-						<legend>Date &amp; Time:</legend>
-						<fieldset class="date-wrap">
-							<input class="date-pick" type="text" name="date" />
+						<fieldset class="date-wrap control-group">
+							<legend>Date:</legend>
+							<div class="date-pick"></div>
+							<input type="text" name="dates" class="date-pick-input" />
 						</fieldset>
 						<fieldset class="time-wrap">
+							<legend>Time:</legend>
 							<span>From:</span>
 							<ul class="time-from single-line">
 								<li>
@@ -98,15 +96,24 @@
 							</ul>
 						</fieldset>
 					</fieldset>
-					<fieldset class="right room-names">
+					<fieldset class="right border room-names">
 						<legend>Available Rooms:</legend>
 						<ul>
+							<li><label class="tipp" title="But I really like the Wachovia one better.<br /><br /><i>Don't they need to change it to Wells Fargo now?"><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
 							<li><label class="tipp" title="Something about Nortel A<br />Can we put line breaks?"><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel A" />Nortel A</label></li>
 							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel B" />Nortel B</label></li>
-							<li><label class="tipp" title="But I really like the Wachovia one better.<br /><br /><i>Don't they need to change it to Wells Fargo now?"><input type="radio" name="<%= radioGroup %>-room-name" value="Wachovia" />Wachovia</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Nortel A+B" />Nortel A + B</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="BB&T" />BB&T</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Discovery Classroom" />Discovery Classroom</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Logan Conference Room 113" />Logan Conference Room 113</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Conference Room 114" />Conference Room 114</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Clark Board Room 117" />Clark Board Room 117</label></li>
+							<li><label class="tipp" title="Nortel B is an awesome room"><input type="radio" name="<%= radioGroup %>-room-name" value="Conference Room 215A" />Conference Room 215A</label></li>
 						</ul>
 					</fieldset>
+
 					<br />
+
 					<fieldset class="additionals">
 						<legend>I Require:</legend>
 						<ul>
@@ -119,27 +126,25 @@
 							<li><label><input type="checkbox" name="other" value="Other" />Other</label></li>
 						</ul>
 					</fieldset>
-					<fieldset class="right configuration">
+					<fieldset class="right border configuration">
 						<legend>Room Configuration:</legend>
-						<ul>
-							<li><label><input type="radio" name="configuration" value="Lecture" />Lecture</label></li>
-							<li><label><input type="radio" name="configuration" value="Classroom" />Classroom</label></li>
-							<li><label><input type="radio" name="configuration" value="Conference" />Conference</label></li>
-							<li><label><input type="radio" name="configuration" value="U Shape" />U Shape</label></li>
-							<li><label><input type="radio" name="configuration" value="Workshop" />Workshop</label></li>
+						<ul class="list-room-configs">
+							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="Lecture" />Lecture</label></li>
+							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="Classroom" />Classroom</label></li>
+							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="Conference" />Conference</label></li>
+							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="U Shape" />U Shape</label></li>
+							<li><label class="tipp" title="Some image with the configuation"><input type="radio" name="<%= radioGroup %>-configuration" value="Workshop" />Workshop</label></li>
+							<li><label>Number of seats: <input type="text" name="num-seats" class="input-num-seats" required /></label></li>
 						</ul>
 					</fieldset>
-					<fieldset class="delete"><img src="img/delete.jpeg" alt="Delete Room Reservation" /></fieldset>
+					
 				</fieldset>
+				<fieldset class="delete"><img src="img/delete.jpeg" alt="Delete Room Reservation" /></fieldset>
 				<fieldset class="border hidden-view">
 					<span class="hidden-title"><%= hiddenTitle %></span>
 				</fieldset>
 			</script>
 			
-
-
-
-
 		</fieldset>
 		<fieldset id="add"><span>Click Here to Add a Room Reservation</span></fieldset>
 	</form>

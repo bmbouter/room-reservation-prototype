@@ -2,9 +2,47 @@
 	var RoomReservation = Backbone.Model.extend({
 		defaults: {
 			name:  'Add A Room',
-			hiddenTitle: 'Room Reservation from 1 PM - 3 PM',
+			hiddenTitle: 'Room Reservation',
 			shown: true,
-			radioGroup: '1'
+			radioGroup: '1',
+			valid: false
+		},
+		initialize: function() {
+			
+		},
+		isValid: function(model) {
+			var valid = true;
+
+			var obj = $(model.el);
+			var roomList = obj.find(".room-names");
+			var room = roomList.find("input[name=" + this.cid + "-room-name]:checked");
+			var configList = obj.find(".configuration");
+			var config = configList.find("input[name=" + this.cid + "-configuration]:checked");
+			var dateWrap = obj.find(".date-wrap");
+			var date = dateWrap.find(".date-pick-input");
+
+			if (room.val() == undefined) {
+				valid = false;
+				roomList.addClass("error");
+			} else {
+				roomList.removeClass("error");
+			}
+
+			if (config.val() == undefined) {
+				valid = false;
+				configList.addClass("error");
+			} else {
+				configList.removeClass("error");
+			}
+
+			if (date.val() == "") {
+				valid = false;
+				dateWrap.addClass("error");
+			} else {
+				dateWrap.removeClass("error");
+			}
+
+			return valid;
 		}
 	});
 
@@ -21,7 +59,7 @@
 		initialize: function() {
 			this.el              = $("#room-reservations");
 			this.roomsCollection = new RoomsCollection();
-						
+			
 			var that = this;
 			this.roomsCollection.on("add", function(model) {
 				that.append(model);
@@ -36,7 +74,6 @@
 			return this;
 		},
 		addRoomReservation: function() {
-			
 			var room     = new RoomReservation();
 			var id       = room.cid;
 			room.set("radioGroup", id);
@@ -70,8 +107,8 @@
 		template:  $("#roomres-template").html(),
 		events: {
 			"click .room-names input"     : "updateName",
-			"click .toggle, .hidden-view" : "toggleStateAttr",
-			"click .delete"               : "removeReservation"
+			"click .toggle, .hidden-view" : "toggleShownAttr",
+			"click .delete.show"          : "removeReservation"
 		},
 		initialize: function() {
 			_.bindAll(this, "changeReservationName", "toggleState", "updateHiddenTitle");
@@ -80,10 +117,20 @@
 			this.model.bind("change:hiddenTitle", this.updateHiddenTitle);
 
 			this.collection = this.collection;
-		},
-		render: function(model) {
+
 			var templ = _.template(this.template);
 			this.$el.html(templ(this.model.toJSON()));
+
+			this.$el.find(".date-pick").datepicker({minDate: 0, maxDate: +365, autoSize: true, onSelect: function(dateText, inst) {
+					var input = $(inst.input).siblings(".date-pick-input");
+					if (input.val() == "") input.val(dateText);
+					else input.val(input.val() + ", " + dateText);
+				}
+			});
+
+			Tipped.create(this.$el.find(".tipp"), {hook: "rightmiddle"});
+		},
+		render: function(model) {
 			return this;
 		},
 		updateName: function(e) {
@@ -92,8 +139,8 @@
 		changeReservationName: function() {
 			$(this.$el).find("legend.main-legend").text(this.model.get("name"));
 		},
-		toggleStateAttr: function() {
-			this.model.set("shown", !this.model.get("shown"));
+		toggleShownAttr: function() {
+			if (this.model.isValid(this)) this.model.set("shown", !this.model.get("shown"));
 		},
 		toggleState: function() {
 			if (this.model.get("shown") === false) {
@@ -104,9 +151,10 @@
 			}
 		},
 		removeReservation: function() {
+			var that = this;
 			$(this.el).fadeOut(function() {
-				this.collection.remove(this);
-				this.remove();
+				that.collection.remove(this);
+				that.remove();
 			});
 		},
 		getHiddenTitle: function() {
@@ -115,15 +163,15 @@
 			var room     = (selected == undefined) ? room = "Room Reservation" : selected;
 
 			// Get date, if chosen
-			var chosen   = $(this.el).find(".date-pick").val();
-			date         = (chosen == "") ? "" : " on " + chosen;
+			var chosen   = $(this.el).find(".date-pick-input").val();
+			dates        = (chosen == "") ? "" : " on " + chosen;
 
 			// Get time string
 			var minFrom  = ($(this.el).find(".select-from-min").val() == 0) ? "" : ":" + $(this.el).find(".select-from-min").val();
 			var minUntil = ($(this.el).find(".select-until-min").val() == 0) ? "" : ":" + $(this.el).find(".select-until-min").val();
 			var time     = $(this.el).find(".select-from-hour").val() + minFrom + " " + ($(this.el).find(".select-from-ampm").val()).toUpperCase() + " - " + $(this.el).find(".select-until-hour").val() + minUntil + " " + ($(this.el).find(".select-until-ampm").val()).toUpperCase();
 
-			this.model.set("hiddenTitle", room + " from " + time + date);
+			this.model.set("hiddenTitle", room + " from " + time + dates);
 		},
 		updateHiddenTitle: function() {
 			$(this.$el).find("span.hidden-title").text(this.model.get("hiddenTitle"));
@@ -137,11 +185,17 @@
 			var that = this;
 			$("#add").click(function() {that.roomsCollectionView.addRoomReservation();});
 
-			$(".date-pick").live("click", function() {
+			/*$(".date-pick").live("click", function() {
 				$(this).datepicker({minDate: 0, maxDate: +365});
 			});
+			$(".date-pick").datepicker({minDate: 0, maxDate: +365, autoSize: true, onSelect: function(dateText, inst) {
+					var input = $(inst.input).siblings(".date-pick-input");
+					if (input.val() == "") input.val(dateText);
+					else input.val(input.val() + ", " + dateText);
+				}
+			});*/
 
-			Tipped.create(".tipp");
+
 			
 			return this;
 		},
