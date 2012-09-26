@@ -13,7 +13,31 @@
 </head>
 
 <body>
-	<form>
+	
+	<div id="about">
+		<h1 class="page-header">FI Event and Meeting Space Request Form</h1>
+		<p>The Friday Institute offers events and meeting facility space for Friday Institute and College of Education projects and programs. We also rent event and meeting space to other NC State projects and programs that relate to the mission of the Friday Institute, when space is available.</p>
+		<p>Our hours of operations are 7:30am-6:00pm, Monday-Friday; events and meetings can be scheduled between 8:00am and 5:30pm, Monday-Friday.</p>
+		<p>Please fill out this form with details and pertinent information about your event and submit the form preferably 48 hours in advance of your meeting. Last minute or "day of meeting" requests for rooms, meeting space, or IT resources are not guaranteed, and may not be available on short notice.</p>
+		<p>All fields are required to submit the form. After submitting, you will be contacted by our event staff to confirm or discuss your request.<br/>* Required</p>
+	</div>
+	<form id="event-form" method="get" action="">
+		<fieldset id="event">
+			<legend><strong>Event Description</strong></legend>
+                        <span>Event Name *<br/></span>
+			<input type="text" id="event-name" name="event-name" class="required" ></input><br/>
+			<span>Event Description *<br/></span>
+			<textarea id="event-description" name="event-description" rows="10" class="span6 required"></textarea><br/>
+			<span>Event Affiliation *</span>
+			<label class="tipp"><input type="radio" name="event-affiliation" value="Friday Institute project"/>Friday Institute project</label>
+			<label class="tipp"><input type="radio" name="event-affiliation" value="College of Education department, faculty or staff" />College of Education department, faculty or staff</label>
+			<label class="tipp"><input type="radio" name="event-affiliation" value="Other NCSU department or project" />Other NCSU department or project</label>
+			<label class="tipp"><input type="radio" name="event-affiliation" value="FI Partner" />FI Partner</label>
+			<span>Number of attendees *</br></span>
+			<span class="muted">Please provide the number of attendees, including your team, if they will need seating at the event</br></span>
+                        <!--ToDo: Update with the correct maximum number of attendees -->
+			<input type="number" id="event-number-attendees" name="event-number-attendees" class="required" max="100"></input><br/>
+		</fieldset>
 		<fieldset id="room-reservations">
 
 			<script type="text/template" class="room-wrap" id="roomres-template">
@@ -148,16 +172,51 @@
 			
 		</fieldset>
 		<fieldset id="add"><span>Click Here to Add a Room Reservation</span></fieldset>
+		<fieldset id="contact">
+			<legend><strong>Contact Information</strong></legend>
+			<span>Principle Contact for Event Logistics *<br/></span>
+			<input type="text" id="contact-principle" name="contact-principle" class="required"></input><br/>
+			<span>Phone *<br/></span>
+			<input type="text" id="contact-phone" name="contact-phone" class="required"></input><br/>
+			<span>Email *<br/></span>
+			<input type="text" id="contact-email" name="contact-email" class="required email"></input><br/>
+			<span>Alternate Contact for Event Logistics, if any</br></span>
+			<span class="muted">Optional - please provide name, phone, and email</br></span>
+			<textarea id="contact-alternate" name="contact-alternate" rows="8" class="span6"></textarea><br/>
+		</fieldset>
+		<fieldset id="food">
+			<legend><strong>Food, Beverage and Catering</strong></legend>
+			<div>
+			<p>The FI does not provide food, beverages or catering for events.  You are welcome to bring food on your own for your event or coordinate with a caterer.</p>
+			<p>Note: Alcoholic beverages are prohibited at Friday Institute events.</p>
+			</div>
+			<span>Will you have food at your event? *</br></span>
+			<span class="muted">The FI does not provide food, beverages or catering for events. You are welcome to bring food on your own for your event or coordinate with a caterer. Alcoholic beverages are prohibited at Friday Institute events.</br></span>
+			<label><input type="radio" name="catering-type" id="no-food" value="no-food"/>No</label>
+			<label><input type="radio" name="catering-type" value="own-food" value="own-food"/>Yes, providing food ourselves</label>
+			<label><input type="radio" name="catering-type" id="catering-food" value="catering-food"/>Yes, food will be catered</label>
+			<div id="catering-details" class="hide">
+ 				<span>Catering company:</br></span>
+				<input type="text" id="catering-company" name="catering-company" class="required"></input><br/>
+				<span>Caterer's access time:</br></span>
+				<span class="muted">7:30am is the earliest time for access to the FI facility for events</br></span>
+				<input type="text" id="catering-time" name="catering-time" class="required"></input><br/>
+			</div>
+		</fieldset>
+		<button type="submit" class="btn">Submit</button>
 	</form>
 
 	<!--[if lt IE 9]>
 		<script type="text/javascript" src="js/lib/excanvas.js"></script>
 	<![endif]-->
-	<script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
+
+  	
+    <script type="text/javascript" src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min.js"></script>
     <script type="text/javascript" src="js/lib/backbone-min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/lib/tipped.js"></script>
     <script type="text/javascript" src="js/RoomReservation.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
